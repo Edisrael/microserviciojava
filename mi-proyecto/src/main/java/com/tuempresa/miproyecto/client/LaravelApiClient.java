@@ -5,6 +5,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
+import com.tuempresa.miproyecto.dto.ParticipantesResponse;
 
 /**
  * Cliente HTTP para llamar APIs Laravel.
@@ -46,8 +47,11 @@ public class LaravelApiClient {
 				.body(String.class);
 	}
 
-	public String getParticipantes(Long idOfertaAcademica) {
-		return get("/api/cursos/getDataTableParticipants?idOfertaAcademica=" + idOfertaAcademica);
+	public ParticipantesResponse getParticipantes(Integer idOfertaAcademica) {
+		return restClient.get()
+				.uri("/api/cursos/getDataTableParticipants?idOfertaAcademica={id}", idOfertaAcademica)
+				.retrieve()
+				.body(ParticipantesResponse.class);
 	}
 
 }

@@ -3,6 +3,7 @@ package com.tuempresa.miproyecto.controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import com.tuempresa.miproyecto.dto.ParticipantesResponse;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.tuempresa.miproyecto.client.LaravelApiClient;
@@ -22,7 +23,7 @@ public class LaravelProxyController {
 	}
 
 	@GetMapping("/participantes")
-	public String participantesDesdeLaravel(@RequestParam Long idOfertaAcademica) {
+	public ParticipantesResponse participantesDesdeLaravel(@RequestParam Integer idOfertaAcademica) {
 		return laravelApiClient.getParticipantes(idOfertaAcademica);
 	}
 
