@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
 import com.tuempresa.miproyecto.dto.ParticipantesResponse;
 
+
 /**
  * Cliente HTTP para llamar APIs Laravel.
  * Equivalente a Http::baseUrl(...)->withToken(...)->get(...) en Laravel.
@@ -31,11 +32,11 @@ public class LaravelApiClient {
 		this.restClient = builder.build();
 	}
 
-	public String get(String path) {
+	public <T> T get(String path, Class<T> responseType, Object... uriVars) {
 		return restClient.get()
-				.uri(path)
+				.uri(path, uriVars)
 				.retrieve()
-				.body(String.class);
+				.body(responseType);
 	}
 
 	public String post(String path, Object body) {
@@ -48,10 +49,11 @@ public class LaravelApiClient {
 	}
 
 	public ParticipantesResponse getParticipantes(Integer idOfertaAcademica) {
-		return restClient.get()
-				.uri("/api/cursos/getDataTableParticipants?idOfertaAcademica={id}", idOfertaAcademica)
-				.retrieve()
-				.body(ParticipantesResponse.class);
+		return get(
+			"/api/cursos/getDataTableParticipants?idOfertaAcademica={idOfertaAcademica}",
+			ParticipantesResponse.class,
+			idOfertaAcademica
+		);
 	}
 
 }
