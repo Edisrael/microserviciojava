@@ -6,28 +6,27 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tuempresa.miproyecto.repository.FacturaRepository;
+import com.tuempresa.miproyecto.service.FacturaService;
+
+import jakarta.persistence.EntityNotFoundException;
 
 @RestController
 @RequestMapping("/api/facturas")
 public class FacturaController {
 
-	private final FacturaRepository facturaRepository;
+	private final FacturaService facturaService;
 
-	public FacturaController(FacturaRepository facturaRepository) {
-		this.facturaRepository = facturaRepository;
+	public FacturaController(FacturaService facturaService) {
+		this.facturaService = facturaService;
 	}
 
-	/**
-	 * DELETE /api/facturas/{id}
-	 * Tu lógica estaba bien; el ajuste es el recurso (facturas, no clientes).
-	 */
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> borrar(@PathVariable Long id) {
-		if (!facturaRepository.existsById(id)) {
+		try {
+			facturaService.eliminar(id);
+			return ResponseEntity.noContent().build();
+		} catch (EntityNotFoundException e) {
 			return ResponseEntity.notFound().build();
 		}
-		facturaRepository.deleteById(id);
-		return ResponseEntity.noContent().build();
 	}
 }
