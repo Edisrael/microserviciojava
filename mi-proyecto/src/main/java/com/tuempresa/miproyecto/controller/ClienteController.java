@@ -26,6 +26,7 @@ import jakarta.persistence.EntityNotFoundException;
 @RequestMapping("/api/clientes")
 public class ClienteController {
 
+	// Inyección por constructor (recomendada / actual)
 	private final ClienteService clienteService;
 	private final LaravelApiClient laravelApiClient;
 
@@ -33,6 +34,15 @@ public class ClienteController {
 		this.clienteService = clienteService;
 		this.laravelApiClient = laravelApiClient;
 	}
+
+	/*
+	// Inyección por campo (funciona, pero menos recomendada)
+	@Autowired
+	private ClienteService clienteService;
+
+	@Autowired
+	private LaravelApiClient laravelApiClient;
+	*/
 
 	@GetMapping
 	public List<ClienteResponse> listar() {

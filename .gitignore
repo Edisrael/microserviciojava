@@ -1,2 +1,26 @@
-.vscode/
+# OS / editor
 .DS_Store
+.vscode/
+.idea/
+
+# Java / Maven
+mi-proyecto/target/
+mi-proyecto/.mvn/wrapper/maven-wrapper.jar
+*.class
+*.jar
+*.war
+*.iml
+
+# Vue / Node
+frontend-vue/node_modules/
+frontend-vue/dist/
+frontend-vue/dist-ssr/
+frontend-vue/.env
+frontend-vue/.env.*
+!frontend-vue/.env.example
+frontend-vue/*.local
+frontend-vue/coverage/
+
+# Logs
+*.log
+npm-debug.log*
